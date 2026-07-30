@@ -9,9 +9,11 @@ class ReminderViewController: NSViewController {
     private let dismissButton  = NSButton(title: "Got it", target: nil, action: nil)
 
     // MARK: - Lifecycle
-
+    
     override func loadView() {
-        view = NSView(frame: NSRect(x: 0, y: 0, width: 320, height: 200))
+        view = NSView(frame: NSRect(x: 0, y: 0, width: 320, height: 220))
+        view.wantsLayer = true
+        view.layer?.masksToBounds = true
     }
 
     override func viewDidLoad() {
@@ -53,9 +55,11 @@ class ReminderViewController: NSViewController {
 
         // --- Body ---
         bodyLabel.font = .systemFont(ofSize: 13)
-        bodyLabel.textColor = NSColor(white: 0.75, alpha: 1)  // Light gray
+        bodyLabel.textColor = NSColor(white: 0.75, alpha: 1)
         bodyLabel.alignment = .center
-        bodyLabel.maximumNumberOfLines = 3   // Wrap at 3 lines max
+        bodyLabel.maximumNumberOfLines = 0
+        bodyLabel.lineBreakMode = .byWordWrapping
+        bodyLabel.cell?.wraps = true
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // "$0" means "the current item in the loop"
@@ -70,38 +74,36 @@ class ReminderViewController: NSViewController {
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(dismissButton)
     }
+    
+    func update(with exercise: Exercise) {
+        emojiLabel.stringValue = exercise.emoji
+        titleLabel.stringValue = exercise.title
+        bodyLabel.stringValue = exercise.description
+    }
 
     // MARK: - Layout (Auto Layout Constraints)
 
     private func layoutViews() {
 
         NSLayoutConstraint.activate([
+            containerView.widthAnchor.constraint(equalToConstant: 320),
+            containerView.heightAnchor.constraint(equalToConstant: 220),
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
-            // --- Container fills the entire view ---
-            containerView.topAnchor.constraint(equalTo: view.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            // --- Emoji: 24px from top, horizontally centered ---
-            emojiLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 24),
             emojiLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            emojiLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -60),
 
-            // --- Title: 8px below emoji, pinned to side margins ---
             titleLabel.topAnchor.constraint(equalTo: emojiLabel.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            titleLabel.widthAnchor.constraint(equalToConstant: 260),
 
-            // --- Body: 8px below title ---
             bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            bodyLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            bodyLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            bodyLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            bodyLabel.widthAnchor.constraint(equalToConstant: 260),
 
-            // --- Button: 16px below body, centered ---
             dismissButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 16),
             dismissButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            // "lessThanOrEqualTo" gives flexibility — the button won't get cut off
-            // if the text is longer than expected
             dismissButton.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -16),
         ])
     }
