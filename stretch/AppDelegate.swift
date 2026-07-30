@@ -64,7 +64,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         reminderWindowController = ReminderWindowController()
         reminderWindowController?.update(with: exercise)
         reminderWindowController?.showAnimated()
-        reminderWindowController?.startDismissTimer()
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

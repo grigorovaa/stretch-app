@@ -6,7 +6,8 @@ class ReminderWindowController: NSWindowController {
 
     convenience init() {
         let panel = NSPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 320, height: 220),
+            contentRect: NSRect(x: 0, y: 0, width: 300, height: 260),
+          
             styleMask: [.borderless, .nonactivatingPanel], // Appearing won't steal keyboard focus from your work
             backing: .buffered,
             defer: false
@@ -17,8 +18,8 @@ class ReminderWindowController: NSWindowController {
         panel.backgroundColor = .clear   // Our view will handle the background color
         panel.hasShadow = true           // Drop shadow for a polished look
         panel.isMovableByWindowBackground = true  // User can drag it by clicking anywhere
-        panel.minSize = NSSize(width: 320, height: 220)
-        panel.maxSize = NSSize(width: 320, height: 220)
+        panel.minSize = NSSize(width: 300, height: 260)
+        panel.maxSize = NSSize(width: 300, height: 260)
 
         self.init(window: panel)
 
@@ -32,8 +33,8 @@ class ReminderWindowController: NSWindowController {
         guard let screen = NSScreen.main else { return }
 
         let screenRect = screen.visibleFrame
-        let panelWidth: CGFloat = 320
-        let panelHeight: CGFloat = 220
+        let panelWidth: CGFloat = 300
+        let panelHeight: CGFloat = 260
 
         let x = screenRect.maxX - panelWidth - 20
         let y = screenRect.minY + 20
