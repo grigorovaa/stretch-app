@@ -59,13 +59,16 @@ class ReminderViewController: NSViewController {
         titleLabel.alignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        bodyLabel.font = .systemFont(ofSize: 13)
+        bodyLabel.font = .systemFont(ofSize: 14)
         bodyLabel.textColor = NSColor(white: 0.75, alpha: 1)
         bodyLabel.alignment = .center
+        bodyLabel.preferredMaxLayoutWidth = 260
         bodyLabel.maximumNumberOfLines = 0
         bodyLabel.lineBreakMode = .byWordWrapping
         bodyLabel.cell?.wraps = true
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
+        bodyLabel.cell?.alignment = .center
+
 
         // Big countdown number
         countdownLabel.font = .boldSystemFont(ofSize: 48)
@@ -189,7 +192,7 @@ class ReminderViewController: NSViewController {
             titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             titleLabel.widthAnchor.constraint(equalToConstant: 260),
 
-            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            bodyLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: 10),
             bodyLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             bodyLabel.widthAnchor.constraint(equalToConstant: 260),
 
@@ -197,18 +200,18 @@ class ReminderViewController: NSViewController {
             countdownLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
 
             doneButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            doneButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 16),
+            doneButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -34),
         ])
 
         idleConstraints = [
-            startButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 16),
+            startButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -34),
             startButton.trailingAnchor.constraint(equalTo: containerView.centerXAnchor, constant: -8),
-            skipButton.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 16),
+            skipButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -34),
             skipButton.leadingAnchor.constraint(equalTo: containerView.centerXAnchor, constant: 8),
         ]
 
         countingConstraints = [
-            skipButton.topAnchor.constraint(equalTo: countdownLabel.bottomAnchor, constant: 24),
+            skipButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -34),
             skipButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
         ]
 
