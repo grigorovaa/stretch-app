@@ -93,7 +93,7 @@ class ReminderViewController: NSViewController {
         skipButton.translatesAutoresizingMaskIntoConstraints = false
 
         doneButton.bezelStyle = .rounded
-        doneButton.title = "Done 🎉"
+        doneButton.title = "Done"
         doneButton.target = self
         doneButton.action = #selector(doneTapped)
         doneButton.translatesAutoresizingMaskIntoConstraints = false
