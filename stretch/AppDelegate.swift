@@ -61,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let exercise = exercises[exerciseIndex % exercises.count]
         exerciseIndex += 1
 
+        reminderWindowController?.dismiss()  // close existing window first
         reminderWindowController = ReminderWindowController()
         reminderWindowController?.update(with: exercise)
         reminderWindowController?.showAnimated()
