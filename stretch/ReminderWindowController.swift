@@ -20,6 +20,7 @@ class ReminderWindowController: NSWindowController {
         panel.isMovableByWindowBackground = true  // User can drag it by clicking anywhere
         panel.minSize = NSSize(width: 300, height: 260)
         panel.maxSize = NSSize(width: 300, height: 260)
+        panel.appearance = NSAppearance(named: .darkAqua)
 
         self.init(window: panel)
 
